@@ -16,15 +16,15 @@ Instructions for using the program:
 The *.fls file is a simple text file and can be created using any texteditor. The format of the file should be as follows:
 
 "
-    # of images in series
-    Filenames of all the images starting with infocus.dm3
-    -defocus.dm3 (underfocus in increasing defocus value)
-    …
-    +defocus.dm3 (overfocus in increasing defocus values)
-    defstep
-    2*defstep
-    ....
-    n/2*defstep (highest defocus)
+    # of images in series  
+    Filenames of all the images starting with infocus.dm3  
+    -defocus.dm3 (underfocus in increasing defocus value)  
+    …  
+    +defocus.dm3 (overfocus in increasing defocus values)  
+    defstep  
+    2*defstep  
+    ....  
+    n/2*defstep (highest defocus)  
 "
 
 Save the fls file with a useful name since that will be the prefix that will used to save all the subsequent images and intermediate files. Select the appropriate series before loading at the top – “unflip” or “flip”. The rest of the settings are applied accordingly to that series. 
@@ -47,3 +47,9 @@ Save the fls file with a useful name since that will be the prefix that will use
 The next set of options is the method for TIE reconstruction. You can either select “Laplacian” method or the “Inverse gradient” method for solving the TIE. The final option is for computing the intensity derivative. You can either choose the central difference method for intensity derivative or a polynomial fit based intensity derivative calculation. After all the settings are done, click on “Do TIErecon” to start the phase reconstruction. The phase reconstruction uses the updated method of separately reconstructing the magnetic and electrostatic phase shifts using a modified definition for intensity derivative.vi The program will ask whether to resize the entire image to 1024 by 1024 size or to select a 1K by 1K  region from the image. After the reconstruction is complete, a folder called “images” will be created in the same location as the flipped image stack, and images of reconstructed, Bx.t, By.t, Bb.t (magnitude), colormap, intensity derivatives, phase maps and infocus images will be saved. All the images (except colormap) are saved as 32-bit float files, which can be opened using ImageJ or DM for further analysis. The pixel calibration in the reconstructed images is not yet implemented correctly. 
 
 References:
+ (i) E. Gulsoy, J. Simmons, and M. De Graef, Scr. Mater. 60, 381 (2009).
+ (ii) http://bigwww.epfl.ch/thevenaz/stackreg/
+ (iii) V. V Volkov, Y. Zhu, and M. De Graef, Micron 33, 411 (2002).
+ (iv) K. Ishizuka and B. Allman, J. Electron Microsc. (Tokyo). 54, 191 (2005).
+ (v) M. De Graef, Introduction to Conventional Tranmission Electron Microscopy, Cambridge Press, 2003.
+ (vi) E. Humphrey, C. Phatak, A. K. Petford-Long, and M. De Graef, Ultramicroscopy 139, 5 (2014).
