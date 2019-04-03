@@ -15,15 +15,17 @@ Instructions for using the program:
 1) The data must be input as either an fls file or a DM3 3D image stack. If it is a 3D image stack in DM3 format, the program will automatically read the defocus values from the DM3 header as well as the pixel resolution. 
 The *.fls file is a simple text file and can be created using any texteditor. The format of the file should be as follows:
 
-# of images in series
-Filenames of all the images starting with infocus.dm3
--defocus.dm3 (underfocus in increasing defocus value)
-…
-+defocus.dm3 (overfocus in increasing defocus values)
-defstep
-2*defstep
-....
-n/2*defstep (highest defocus)
+"
+    # of images in series
+    Filenames of all the images starting with infocus.dm3
+    -defocus.dm3 (underfocus in increasing defocus value)
+    …
+    +defocus.dm3 (overfocus in increasing defocus values)
+    defstep
+    2*defstep
+    ....
+    n/2*defstep (highest defocus)
+"
 
 Save the fls file with a useful name since that will be the prefix that will used to save all the subsequent images and intermediate files. Select the appropriate series before loading at the top – “unflip” or “flip”. The rest of the settings are applied accordingly to that series. 
 
