@@ -57,13 +57,14 @@ if (data.method eq 0) then begin
 	if (data.gtlt eq 1) then a=float(a GT unflip.thrs)*unflip.commask else a=float(a LT unflip.thrs)*unflip.commask
 	;SSD Norm to be minimized
 	cm = -total((c-a)^2)
+	cm = -total(c*a)
 endif else begin
 	imgs=bytarr(2,unflip.dim,unflip.dim)
 	imgs[0,*,*] = bytscl(a*unflip.commask)
 	imgs[1,*,*] = bytscl(c*flip.commask)
 	res = joint_entropy(imgs,mutual=cm,/nozero)
 endelse
-tvscl,rebin(0.5*(a+c)*unflip.commask*flip.commask,unflip.dim/2,unflip.dim/2)
+tvscl,rebin(0.5*(a+c)*unflip.commask*flip.commask,unflip.dim/4,unflip.dim/4)
 return,-cm
 end
 
@@ -372,7 +373,8 @@ case eventval of
 		q=assoc(1,fltarr(ndim,ndim),2)
 		iMTF=q[0]
 		close,1
-		if (fs.dim gt 2048) then iMTF=1.0
+		;if (fs.dim gt 2048) then iMTF=1.0
+		iMTF=1.0
 		;open the aligned stack of images
 		fi=file_info(fs.path+fs.prefix+'.aligned')
 		if (fi.exists ne 1) then begin
@@ -528,7 +530,7 @@ case eventval of
                 if (val eq 0) then fs=unflip else fs=flip
 	        im=fs.disp_img
                   imf = mdg_filter_2d(im,'LoG',sigma=fs.sigma)*fs.mask
-                  data.gtlt = 1
+		  data.gtlt = 1
                   wset,widget.drawid
                   tvscl,rebin(imf GT fs.thrs,widget.wsi,widget.wsi)
 		endcase
@@ -536,7 +538,6 @@ case eventval of
                 ;Check which image is being displayed
                 WIDGET_CONTROL,GET_VALUE=val,widget.imnm
                 if (val eq 0) then fs=unflip else fs=flip
-	        openr,1,fs.path+fs.prefix+'.decon'
 	        im=fs.disp_img
                   imf = mdg_filter_2d(im,'LoG',sigma=fs.sigma)*fs.mask
                   data.gtlt = -1
@@ -720,7 +721,7 @@ case eventval of
 			scl = [2.0,2.0,2.0,0.2]
 		endif else begin
 			pa = [-roughx,-roughy,0.0,1.0,1.0,0.0,0.0]
-			scl = [5.0,5.0,5.0,0.4,0.4,0.4,0.4]
+			scl = [2.0,2.0,2.0,0.1,0.1,0.1,0.1]
 		endelse
 		iter=0
 		itmax=3000
